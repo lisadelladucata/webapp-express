@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "node --env-file=.env --watch app.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,8 @@
   "homepage": "https://github.com/lisadelladucata/webapp-express#readme",
   "description": "",
   "dependencies": {
-    "express": "^4.21.2"
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0"
   }
 }
