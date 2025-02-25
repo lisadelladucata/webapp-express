@@ -17,7 +17,7 @@ const show = (req, res) => {
     FROM reviews
     WHERE movie_id=?
     `;
-  const { id } = req.params.id;
+  const id = req.params.id;
 
   connection.query(movieSql, [id], (err, results) => {
     if (err) {
@@ -42,8 +42,7 @@ const show = (req, res) => {
         });
       }
 
-      post.tags = results;
-
+      movie.reviews = results;
       res.json(movie);
     });
   });
