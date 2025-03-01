@@ -7,15 +7,15 @@ const moviesRouter = require("./routers/moviesRouter");
 const app = express();
 const { PORT, FE_URL } = process.env;
 
-app.use(express.static("public"));
-
-app.use(express.json());
-
 app.use(
   cors({
     origin: FE_URL,
   })
 );
+
+app.use(express.static("public"));
+
+app.use(express.json());
 
 app.use("/movies", moviesRouter);
 
