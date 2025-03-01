@@ -66,6 +66,26 @@ const show = (req, res) => {
   });
 };
 
+// Create Review
+const createReview = (req, res) => {
+  const { id } = req.params;
+
+  const { name, vote, text } = req.body;
+
+  const sql =
+    "INSERT INTO reviews (movie_id, name, text, vote) VALUES (?, ?, ?, ?)";
+
+  connection.execute(sql, [id, name, text, vote], (err, results) => {
+    if (err) {
+      return res.status(500).json({
+        error: "Query Error",
+        message: `Database query failed`,
+      });
+    }
+    res.status(201).json({ id: results.insertId });
+  });
+};
+
 // Destroy
 const destroy = (req, res) => {
   const sql = `DELETE FROM movies WHERE id = ?`;
@@ -82,4 +102,4 @@ const destroy = (req, res) => {
   });
 };
 
-module.exports = { index, show, destroy };
+module.exports = { index, show, createReview, destroy };
