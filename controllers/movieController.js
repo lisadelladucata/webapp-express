@@ -75,13 +75,34 @@ const createReview = (req, res) => {
   const sql =
     "INSERT INTO reviews (movie_id, name, text, vote) VALUES (?, ?, ?, ?)";
 
-  connection.execute(sql, [id, name, text, vote], (err, results) => {
+  connection.query(sql, [id, name, text, vote], (err, results) => {
     if (err) {
       return res.status(500).json({
         error: "Query Error",
         message: `Database query failed`,
       });
     }
+    res.status(201).json({ id: results.insertId });
+  });
+};
+
+// Store
+const store = (req, res) => {
+  const image = req.file.filename;
+
+  const { title, director, abstract } = req.body;
+
+  const sql =
+    "INSERT INTO movies (title, director, abstract, image) VALUES (?, ?, ?, ?)";
+
+  connection.query(sql, [title, director, abstract, image], (err, results) => {
+    if (err) {
+      return res.status(500).json({
+        error: "Query Error",
+        message: `Database query failed`,
+      });
+    }
+
     res.status(201).json({ id: results.insertId });
   });
 };
@@ -102,4 +123,4 @@ const destroy = (req, res) => {
   });
 };
 
-module.exports = { index, show, createReview, destroy };
+module.exports = { index, show, createReview, store, destroy };
